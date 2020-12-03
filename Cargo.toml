@@ -1,0 +1,15 @@
+[package]
+name = "opengl_2d"
+version = "0.1.0"
+authors = ["Rafael <rafael1.618@outlook.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glfw = "0.41.0"
+gl_loader= "0.1.2"
+gl = "0.14.0"
+stb_image = "0.2.2"
+nalgebra-glm = "0.3"
+freetype-rs = "0.19.1"
