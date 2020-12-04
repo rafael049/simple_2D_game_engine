@@ -1,27 +1,34 @@
+use glfw::{Context};
+use std::{time};
 
-pub mod crate::input;
-pub mod resources;
-pub mod shader;
-pub mod mesh;
-pub mod texture;
-pub mod camera;
-pub mod object;
-pub mod player;
-pub mod scene;
-pub mod light;
-pub mod text;
-pub mod text_mesh;
-pub mod editor;
-pub mod entity;
-pub mod ui_object;
-pub mod ui_entity;
-pub mod render_engine;
-pub mod ui;
+use crate::input;
+use crate::resources;
+use crate::shader;
+use crate::mesh;
+use crate::texture;
+use crate::camera;
+use crate::object;
+use crate::player;
+use crate::scene;
+use crate::light;
+use crate::text;
+use crate::text_mesh;
+use crate::editor;
+use crate::entity;
+use crate::ui_object;
+use crate::ui_entity;
+use crate::render_engine;
+use crate::ui;
 
 
 pub struct Engine {
-    render_engine: RenderEngine,
-    input: Input,
+    glfw: glfw::Glfw,
+    window: glfw::Window,
+    render_engine: render_engine::RenderEngine,
+    input: input::Input,
+    resources: resources::Resources,
+    scene: scene::Scene,
+    ui: ui::UI,
 }
 
 
@@ -81,9 +88,39 @@ impl Engine {
 
         render_engine.set_clear_color(glm::vec3(0.2, 0.2, 0.2));
 
+        return Engine {
+            glfw,
+            window,
+            render_engine,
+            input,
+            resources,
+            scene,
+            ui,
         }
 
-        pub fn run() {
+    }
 
+    pub fn run(mut self) {
+        while !self.window.should_close() {
+            self.glfw.poll_events();
+            self.input.update(&mut self.glfw);
+
+            self.resources.reload_shader();
+
+            let time1 = time::SystemTime::now();
+
+            self.scene.update(&self.input);
+            self.render_engine.render_all(&mut self.window, &self.scene, &self.ui,  &self.resources);
+
+            let time2 = time::SystemTime::now();
+            let delta_time = time2.duration_since(time1).unwrap().as_secs_f32();
+            let fps = (1.0/delta_time) as i32;
         }
+
+    }
+}
+
+fn load_gl_symbol() {
+    gl_loader::init_gl();
+    gl::load_with(|symbol| gl_loader::get_proc_address(symbol) as *const _);
 }

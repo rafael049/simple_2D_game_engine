@@ -30,6 +30,7 @@ pub mod engine;
 
 
 fn main() {
+    /*
     let screen_width  = camera::WIDTH as u32;
     let screen_height = camera::HEIGHT as u32;
 
@@ -98,7 +99,11 @@ fn main() {
         let time2 = time::SystemTime::now();
         let delta_time = time2.duration_since(time1).unwrap().as_secs_f32();
         let fps = (1.0/delta_time) as i32;
-    }
+    }*/
+
+    let mut engine = engine::Engine::new();
+
+    engine.run();
 }
 
 fn load_gl_symbol() {
