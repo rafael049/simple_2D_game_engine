@@ -8,9 +8,7 @@ use glfw::Context;
 use crate::scene::Scene;
 use crate::shader::ShaderProgram;
 use crate::resources::Resources;
-use crate::editor::Editor;
 use crate::ui::UI;
-use crate::camera::Camera;
 
 pub struct RenderEngine {
     screen_width: i32,

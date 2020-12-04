@@ -59,7 +59,7 @@ impl Entity for Object {
 
 
 impl Object {
-    pub fn new(name: &str, texture_name: &str, shader_name: &str, resources: &mut resources::Resources) -> Object {
+    pub fn new(name: &str, texture_name: &str) -> Object {
 
         let difuse_filename = format!("{}_difuse.png", texture_name);
         let normal_filename = format!("{}_normal.png", texture_name);
@@ -79,6 +79,5 @@ impl Object {
 
         Object{name, pos, scale, model_mat, mesh, texture_difuse, texture_normal, outline, last_pos}
     }
-
 
 }

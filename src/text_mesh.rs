@@ -5,7 +5,6 @@ use std::mem;
 use gl::types::{GLvoid, GLsizeiptr, GLsizei};
 
 use crate::resources::CharacterSet;
-use crate::shader::ShaderProgram;
 
 
 
@@ -17,10 +16,9 @@ pub struct TextMesh {
 
 
 impl TextMesh {
-    pub fn new(string: &str) -> TextMesh {
+    pub fn new() -> TextMesh {
         let mut vao:u32 = 0;
         let mut vbo:u32 = 0;
-        let string = String::from(string);
         
        unsafe {
             gl::GenVertexArrays(1, &mut vao);

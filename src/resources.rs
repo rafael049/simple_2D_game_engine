@@ -10,7 +10,6 @@ use std::rc::Rc;
 use stb_image::image::{self, Image, LoadResult};
 
 use crate::shader::{ShaderProgram, ShaderSource};
-use crate::texture::Texture;
 
 pub const SHADERS_PATH: &'static str = "assets/shaders/";
 pub const IMAGES_PATH: &'static str = "assets/images/";
@@ -34,7 +33,6 @@ pub struct Resources {
     shader_program: Rc<RefCell<ShaderProgram>>,
     text_shader:    ShaderProgram,
     ui_shader:      ShaderProgram,
-    textures:       HashMap<String, Rc<RefCell<Texture>> >,
     characters:     HashMap<char, Character>,
 }
 
@@ -63,8 +61,6 @@ impl Resources {
 
         let ui_shader= ShaderProgram::new(&src_vs, &src_fs, mod_date).unwrap();
 
-        // create textures
-        let textures       = HashMap::new();
 
         // create font set
         let characters = load_characters();
@@ -73,7 +69,6 @@ impl Resources {
             shader_program,
             text_shader,
             ui_shader,
-            textures,
             characters,
         }
     }

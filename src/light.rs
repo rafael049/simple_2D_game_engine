@@ -11,7 +11,9 @@ pub struct Light {
 }
 
 impl Entity for Light {
+    #[allow(unused_variables)]
     fn render(&self, shader:&ShaderProgram){}
+
     fn update(&mut self) {}
 
     fn set_pos(&mut self, pos: glm::Vec2){

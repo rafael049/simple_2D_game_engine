@@ -1,11 +1,7 @@
-use crate::object::*;
 use crate::light::*;
 use crate::camera::*;
 use crate::input::*;
-use crate::player::*;
 use crate::shader::ShaderProgram;
-use crate::text::Text;
-use crate::resources::Resources;
 
 use crate::entity::Entity;
 
@@ -14,7 +10,6 @@ use crate::entity::Entity;
 pub struct EntityCollection {
     pub lights:  Vec<Box<dyn Entity>>,
     pub objects: Vec<Box<dyn Entity>>,
-    pub player: Box<dyn Entity>,
 }
 
 impl EntityCollection {
@@ -32,12 +27,11 @@ pub struct Scene {
 
 
 impl Scene {
-    pub fn new(camera: Camera, player: Player) -> Scene {
+    pub fn new(camera: Camera) -> Scene {
         let entity_collection =
             EntityCollection {
                 lights:  Vec::new(),
                 objects: Vec::new(),
-                player: Box::new(player),
 
             };
 
@@ -56,18 +50,15 @@ impl Scene {
             obj.render(&shader);
         }
 
-        self.entity_collection.player.render(&shader);
-
     }
 
 
     pub fn update(&mut self, input:&Input) {
         self.camera.update(&input);
-        self.entity_collection.player.update();
         for obj in &mut self.entity_collection.objects {
             obj.update();
+            obj.process_input(&input);
         }
-        //self.texts[0].set_text("macunaima");
     }
 
     pub fn push_entity<E: 'static + Entity>(&mut self, ent: E){

@@ -1,8 +1,6 @@
 extern crate freetype;
 extern crate nalgebra_glm as glm;
 
-use std::mem;
-use gl::types::{GLvoid, GLsizeiptr, GLsizei};
 
 use crate::resources::CharacterSet;
 use crate::shader::ShaderProgram;
@@ -25,7 +23,7 @@ impl Text {
     pub fn new(string: &str, pos: glm::Vec2, scale: f32, color: glm::Vec3) -> Text {
         let string = String::from(string);
         
-	let mesh = TextMesh::new(&string);
+	let mesh = TextMesh::new();
 
         Text {
             pos,
@@ -48,7 +46,6 @@ impl Text {
         shader.set_uniform_vec3("textColor", &self.color);
 
 	self.mesh.render(&self.pos, self.scale, &self.string, &characters);
-	println!("rendering text!");
 
 
 

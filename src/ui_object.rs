@@ -1,20 +1,12 @@
 extern crate gl;
 extern crate nalgebra_glm as glm;
 
-use crate::camera;
 use crate::mesh;
 use crate::shader;
 use crate::resources;
 use crate::texture;
-use crate::input;
 
 use crate::ui_entity::UIEntity;
-
-
-use std::rc::Rc;
-use std::cell::RefCell;
-use std::cell::Ref;
-
 
 pub struct UIObject {
     pub name: String,
@@ -61,7 +53,7 @@ impl UIEntity for UIObject {
 
 impl UIObject {
 
-    pub fn new(name: &str, texture_name: &str, shader_name: &str, resources: &mut resources::Resources) -> UIObject {
+    pub fn new(name: &str, texture_name: &str) -> UIObject {
 
         let difuse_filename = format!("{}_difuse.png", texture_name);
         let normal_filename = format!("{}_normal.png", texture_name);
